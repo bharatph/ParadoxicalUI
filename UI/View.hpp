@@ -13,9 +13,8 @@ class View
 private:
   void callEvents(EventType eventType)
   {
-    std::vector<OnEventListener<T> *> *listeners = eventListeners[EventType::Click];
-    if (listeners)
-      for (auto listener : *listeners)
+    if (eventListeners[eventType])
+      for (auto listener : *eventListeners[eventType])
         listener->onEvent(nullptr);
   }
 
