@@ -1,6 +1,7 @@
 #ifndef _GUI_H
 #define _GUI_H "GUI"
 #include <IUI.hpp>
+#include <GUI/GUI.hpp>
 class GUI : public IUI
 {
 public:

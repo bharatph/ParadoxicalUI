@@ -23,15 +23,6 @@ protected:
   std::map<EventType, std::vector<OnEventListener<T> *> *> eventListeners;
   std::vector<View<T> *> children;
 
-  void click()
-  {
-    callEvents(EventType::Click);
-  }
-  void longClick()
-  {
-    callEvents(EventType::LongClick);
-  }
-
 public:
   View()
   {
@@ -40,15 +31,27 @@ public:
   {
     if (!eventListener)
       return;
-    std::vector<OnEventListener<T> *> *listeners = eventListeners[eventType];
-    if (!listeners)
-      listeners = new std::vector<OnEventListener<T> *>();
-    listeners->push_back(eventListener);
+    if (!eventListeners[eventType])
+      eventListeners[eventType] = new std::vector<OnEventListener<T> *>();
+    eventListeners[eventType]->push_back(eventListener);
   }
   void addChildren(View<T> *view)
   {
     if (view)
       children.push_back(view);
+  }
+  std::vector<View<T> *> getChildren()
+  {
+    return children;
+  }
+
+  void click()
+  {
+    callEvents(EventType::Click);
+  }
+  void longClick()
+  {
+    callEvents(EventType::LongClick);
   }
 };
 #endif
