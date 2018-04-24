@@ -3,7 +3,7 @@
 
 #include <OnEventListener.hpp>
 #include <UI/UI.hpp>
-#include <EventType.hpp>
+#include <Event.hpp>
 #include <UI/View.hpp>
 template <class T>
 class CallbackTests
@@ -13,11 +13,6 @@ class CallbackTests
 
   public:
     CallbackTests()
-    {
-        callBasedOnArgs();
-    }
-
-    void callBasedOnArgs()
     {
         ui = new UI<T>();
         class _ : public OnEventListener<T>
@@ -31,7 +26,7 @@ class CallbackTests
             }
         };
         View<T> *button = new View<T>();
-        button->setOnEventListener(EventType::Click, new _());
+        button->setOnEventListener(Event::Click, new _());
         ui->addChildren(button);
         ui->fun1();
         //ui->someCall();

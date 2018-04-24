@@ -17,7 +17,6 @@ public:
   void fun1()
   {
     ui->fun1();
-    View<T>::children.at(0)->click();
   }
   void fun2()
   {

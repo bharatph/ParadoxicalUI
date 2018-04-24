@@ -4,35 +4,35 @@
 #include <algorithm>
 #include <vector>
 #include <map>
-#include <EventType.hpp>
+#include <Event.hpp>
 #include <OnEventListener.hpp>
 
 template <class T>
 class View
 {
 private:
-  void callEvents(EventType eventType)
+  void callEvents(enum Event event)
   {
-    if (eventListeners[eventType])
-      for (auto listener : *eventListeners[eventType])
+    if (eventListeners[event])
+      for (auto listener : *eventListeners[event])
         listener->onEvent(nullptr);
   }
 
 protected:
-  std::map<EventType, std::vector<OnEventListener<T> *> *> eventListeners;
+  std::map<Event, std::vector<OnEventListener<T> *> *> eventListeners;
   std::vector<View<T> *> children;
 
 public:
   View()
   {
   }
-  void setOnEventListener(enum EventType eventType, OnEventListener<T> *eventListener)
+  void setOnEventListener(enum Event event, OnEventListener<T> *eventListener)
   {
     if (!eventListener)
       return;
-    if (!eventListeners[eventType])
-      eventListeners[eventType] = new std::vector<OnEventListener<T> *>();
-    eventListeners[eventType]->push_back(eventListener);
+    if (!eventListeners[event])
+      eventListeners[event] = new std::vector<OnEventListener<T> *>();
+    eventListeners[event]->push_back(eventListener);
   }
   void addChildren(View<T> *view)
   {
@@ -46,11 +46,11 @@ public:
 
   void click()
   {
-    callEvents(EventType::Click);
+    callEvents(Event::Click);
   }
   void longClick()
   {
-    callEvents(EventType::LongClick);
+    callEvents(Event::LongClick);
   }
 };
 #endif
