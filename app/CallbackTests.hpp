@@ -21,6 +21,7 @@ class CallbackTests
             _() {}
             void onEvent(View<T> *sender) override
             {
+		std::cout << sender->getId() << std::endl;
                 std::cout << "Hello" << std::endl;
                 //ui->uiRelatedCall();
             }

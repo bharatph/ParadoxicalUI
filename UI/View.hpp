@@ -6,16 +6,18 @@
 #include <map>
 #include <Event.hpp>
 #include <OnEventListener.hpp>
+#include <crossguid/guid.hpp>
 
 template <class T>
 class View
 {
 private:
+  xg::Guid *id = nullptr;
   void callEvents(enum Event event)
   {
     if (eventListeners[event])
       for (auto listener : *eventListeners[event])
-        listener->onEvent(nullptr);
+        listener->onEvent(this);
   }
 
 protected:
@@ -25,6 +27,7 @@ protected:
 public:
   View()
   {
+    id = new xg::Guid(xg::newGuid());
   }
   void setOnEventListener(enum Event event, OnEventListener<T> *eventListener)
   {
@@ -51,6 +54,9 @@ public:
   void longClick()
   {
     callEvents(Event::LongClick);
+  }
+  std::string getId(){
+    return id->str();
   }
 };
 #endif
